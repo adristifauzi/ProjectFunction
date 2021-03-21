@@ -1,0 +1,50 @@
+def Card_Verification(numcard):
+    num = numcard.replace(' ', '')
+    if 13 <= len(num) <= 16:
+        if numcard[0] == '4':
+            Identity='Это карта Visa' #This card is a Visa Card
+        elif numcard[0] == '5':
+            Identity = 'Это MasterCard' #This card is a MasterCard
+        elif numcard[0] == '3':
+            if numcard[1] == '7':
+                Identity='Это карта American Express' #This card is an American Express Card
+            else:
+                Identity = 'Тип карты не может быть идентифицирован' #The type of the card cannot be Identified
+        elif numcard[0] == '6':
+            Identity = 'Это карта Discover' #This card is a Discover Card
+        elif numcard[0] == '2':
+            Identity = 'Это карта "Мир"' #This card is a Mir Card
+        else:
+            Identity = 'Тип карты не может быть идентифицирован' #The type of the card cannot be Identified
+        num=numcard.replace(' ','')
+        num=num[::-1]
+        even_list=[]
+        odd_list=[]
+        for i in range (len(num)):
+            if i%2!=0: #because it is started with 0
+                numeven=int(num[i])*2
+                if numeven > 9:
+                    numeven=str(numeven)
+                    numeven=int(numeven[0])+int(numeven[1])
+                    even_list.append(int(numeven))
+                else:
+                    even_list.append(int(numeven))
+            else:
+                odd_list.append(int(num[i]))
+        r=0
+        for i in even_list:
+            r=r+i
+        for i in odd_list:
+            r=r+i
+        if r%10 ==0:
+            correctness='Номер карты действителен' #The card number is valid
+            result = Identity + '\n' + correctness
+        else:
+            correctness='Номер карты недействителен' #The card number is invalid
+            result = Identity + '\n' + correctness
+    else:
+        result = 'Цифры карты неверны' #The card digits are incorrect
+    return result
+numcard=input()
+result = Card_Verification(numcard)
+print(result)
